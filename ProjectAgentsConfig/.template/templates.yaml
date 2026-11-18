@@ -1,9 +1,0 @@
-templates:
-  - name: Example Node.js Project
-    description: A minimal JavaScript console application demonstrating a project template.
-    scope: Node.js console application
-    path: ExampleTemplate
-    features:
-      - Runnable with npm start
-      - No external dependencies
-      - Example source folder and getting-started documentation
