@@ -1,0 +1,87 @@
+{
+  "name": "project-template-manager",
+  "displayName": "Project Template Manager",
+  "description": "Discover project templates in Git repositories and create projects from them.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "build": "node scripts/check.js",
+    "test": "node --test",
+    "watch": "node --watch --watch-path=extension.js --watch-path=templateManager.js --watch-path=media --watch-preserve-output scripts/check.js"
+  },
+  "dependencies": {
+    "yaml": "^2.8.1"
+  },
+  "contributes": {
+    "configuration": {
+      "title": "Project Template Manager",
+      "properties": {
+        "projectTemplates.repositories": {
+          "type": "array",
+          "default": [],
+          "description": "Git repositories containing .template/templates.yml or .template/templates.yaml. Use a URL or absolute local Git repository path. Omit ref to use the default branch.",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string",
+                "minLength": 1,
+                "description": "HTTPS/SSH Git URL or absolute local Git repository path."
+              },
+              "ref": {
+                "type": "string",
+                "description": "Optional commit hash or tag. Omit to use the default branch."
+              }
+            }
+          }
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "projectTemplates.openSettings",
+        "title": "Project Templates: Repository Settings"
+      },
+      {
+        "command": "projectTemplates.addRepository",
+        "title": "Project Templates: Add Repository"
+      },
+      {
+        "command": "projectTemplates.removeRepository",
+        "title": "Project Templates: Remove Repository"
+      },
+      {
+        "command": "projectTemplates.refresh",
+        "title": "Project Templates: Refresh Templates"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "projectTemplates",
+          "title": "Project Template Manager",
+          "icon": "media/project-templates.svg"
+        }
+      ]
+    },
+    "views": {
+      "projectTemplates": [
+        {
+          "type": "webview",
+          "id": "projectTemplates.view",
+          "name": "Project Templates"
+        }
+      ]
+    }
+  }
+}
